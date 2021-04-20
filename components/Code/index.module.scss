@@ -1,0 +1,8 @@
+.root {
+	cursor: text;
+
+	:global {
+		@import 'codemirror';
+		@import 'codemirror/theme/monokai';
+	}
+}
