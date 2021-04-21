@@ -28,7 +28,11 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 			</Tabs>
 			<Download snip={snip} />
 		</div>
-		{snip ? <Code className={styles.code} snip={snip} /> : 'snip not found'}
+		{snip ? (
+			<Code className={styles.code} snip={snip} />
+		) : (
+			<p className={styles.notFound}>snip not found</p>
+		)}
 	</div>
 )
 
