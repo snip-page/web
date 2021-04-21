@@ -1,8 +1,20 @@
+@font-face {
+	font-family: Menlo;
+	font-display: swap;
+	src: url('~fonts/menlo.ttf') format('truetype');
+}
+
 .root {
 	cursor: text;
+	overflow-y: auto;
 
-	:global {
-		@import 'codemirror';
-		@import 'codemirror/theme/monokai';
+	:global .CodeMirror {
+		height: 100% !important;
+		font-family: Menlo, monospace !important;
+
+		&,
+		&-gutters {
+			background: none !important;
+		}
 	}
 }

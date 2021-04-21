@@ -9,6 +9,8 @@
 		"start": "node server-build"
 	},
 	"dependencies": {
+		"classnames": "^2.3.1",
+		"code-icons": "^1.0.5",
 		"codemirror": "^5.61.0",
 		"csp-header": "^2.2.0",
 		"express": "^4.17.1",
