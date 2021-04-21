@@ -24,12 +24,16 @@ const Code = ({ className, snip }: CodeProps) => {
 		getMode(snip).then(mode => {
 			if (!(host.current && mode)) return
 
-			CodeMirror(host.current, {
+			const editor = CodeMirror(host.current, {
 				value: snip.text,
 				mode,
 				theme: 'oceanic-next',
 				lineNumbers: true
 			})
+
+			setTimeout(() => {
+				editor.refresh()
+			}, 1000)
 		})
 	}, [snip, host])
 
