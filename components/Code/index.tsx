@@ -31,6 +31,10 @@ const Code = ({ className, snip }: CodeProps) => {
 				lineNumbers: true
 			})
 
+			editor.on('change', () => {
+				snip.text = editor.getValue()
+			})
+
 			setTimeout(() => {
 				editor.refresh()
 			}, 1000)

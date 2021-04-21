@@ -8,6 +8,7 @@ import Props from 'lib/snip/page/props'
 import Tabs from 'components/Tabs'
 import HomeTab from 'components/Tabs/Home'
 import SnipTab from 'components/Tabs/Snip'
+import Download from 'components/Snip/Download'
 
 import styles from './index.module.scss'
 
@@ -20,10 +21,13 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 		<Head>
 			<title key="title">{snip?.name ?? '404.txt'} | snip</title>
 		</Head>
-		<Tabs>
-			<HomeTab />
-			<SnipTab snip={snip} />
-		</Tabs>
+		<div className={styles.options}>
+			<Tabs>
+				<HomeTab />
+				<SnipTab snip={snip} />
+			</Tabs>
+			<Download snip={snip} />
+		</div>
 		{snip ? <Code className={styles.code} snip={snip} /> : 'snip not found'}
 	</div>
 )

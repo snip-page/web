@@ -5,7 +5,7 @@ import cx from 'classnames'
 
 import Snip from 'lib/snip'
 
-import times from 'images/times.svg'
+import closeIcon from 'images/times.svg'
 
 import styles from './index.module.scss'
 
@@ -24,7 +24,7 @@ const SnipTab = ({ snip }: SnipTabProps) => (
 			aria-hidden
 		/>
 		{snip?.name ?? '404.txt'}
-		<Svg className={styles.close} src={times} onClick={close} />
+		<Svg className={styles.close} src={closeIcon} onClick={close} />
 	</span>
 )
 
