@@ -7,3 +7,6 @@ export const ORIGIN = process.env.NEXT_PUBLIC_ORIGIN
 if (!ORIGIN) throw new Error('Missing origin')
 
 export const ROOT = join(__dirname, '..', '..')
+
+export const NAME_MAX_LENGTH = 100
+export const TEXT_MAX_LENGTH = 100000
