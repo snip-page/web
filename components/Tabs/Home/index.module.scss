@@ -1,0 +1,26 @@
+@use 'styles/colors';
+
+.root {
+	flex-shrink: 0;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	min-width: 120px;
+	padding: 0 12px;
+	text-decoration: none;
+	color: white;
+	border-bottom: 1px solid transparent;
+	transition: border-bottom-color 0.15s;
+
+	&:hover {
+		border-bottom-color: transparentize(white, 0.7);
+	}
+}
+
+.icon {
+	flex-shrink: 0;
+	height: 18px;
+	transform: scaleX(1.1);
+	margin: 0 10px 0 4px;
+	color: colors.$blue;
+}

@@ -15,11 +15,10 @@ const close = () => {
 
 export interface SnipTabProps {
 	snip: Snip
-	selected?: boolean
 }
 
-const SnipTab = ({ snip, selected = false }: SnipTabProps) => (
-	<span className={styles.root} aria-current={selected && 'page'}>
+const SnipTab = ({ snip }: SnipTabProps) => (
+	<span className={styles.root}>
 		<span
 			className={cx(styles.icon, getIcon(snip.name) ?? 'text-icon')}
 			aria-hidden
