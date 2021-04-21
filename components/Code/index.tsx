@@ -4,6 +4,7 @@ import cx from 'classnames'
 
 import Snip from 'lib/snip'
 import getMode from 'lib/snip/mode'
+import onError from 'lib/error'
 
 import styles from './index.module.scss'
 
@@ -21,25 +22,27 @@ const Code = ({ className, snip }: CodeProps) => {
 	useEffect(() => {
 		if (!host.current) return
 
-		getMode(snip).then(mode => {
-			if (!(host.current && mode)) return
+		getMode(snip)
+			.then(mode => {
+				if (!(host.current && mode)) return
 
-			const editor = CodeMirror(host.current, {
-				value: snip.text,
-				mode,
-				theme: 'oceanic-next',
-				lineWrapping: true,
-				lineNumbers: true
+				const editor = CodeMirror(host.current, {
+					value: snip.text,
+					mode,
+					theme: 'oceanic-next',
+					lineWrapping: true,
+					lineNumbers: true
+				})
+
+				editor.on('change', () => {
+					snip.text = editor.getValue()
+				})
+
+				setTimeout(() => {
+					editor.refresh()
+				}, 1000)
 			})
-
-			editor.on('change', () => {
-				snip.text = editor.getValue()
-			})
-
-			setTimeout(() => {
-				editor.refresh()
-			}, 1000)
-		})
+			.catch(onError)
 	}, [snip, host])
 
 	return <div className={cx(styles.root, className)} ref={host} />
