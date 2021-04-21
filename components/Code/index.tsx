@@ -28,6 +28,7 @@ const Code = ({ className, snip }: CodeProps) => {
 				value: snip.text,
 				mode,
 				theme: 'oceanic-next',
+				lineWrapping: true,
 				lineNumbers: true
 			})
 
