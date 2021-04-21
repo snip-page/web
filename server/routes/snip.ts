@@ -22,6 +22,17 @@ router.get('/:id', async (_req, res, next) => {
 	}
 })
 
+router.get('/rooms/:id', async ({ params }, res) => {
+	try {
+		const snip = await getSnip(params.id)
+		if (!snip) throw new HttpError(404, 'Snip not found')
+
+		res.send(snip)
+	} catch (error) {
+		sendError(res, error)
+	}
+})
+
 router.post(
 	'/snips',
 	rateLimit(15, 60),

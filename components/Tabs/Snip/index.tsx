@@ -14,16 +14,16 @@ const close = () => {
 }
 
 export interface SnipTabProps {
-	snip: Snip
+	snip: Snip | null
 }
 
 const SnipTab = ({ snip }: SnipTabProps) => (
 	<span className={styles.root}>
 		<span
-			className={cx(styles.icon, getIcon(snip.name) ?? 'text-icon')}
+			className={cx(styles.icon, (snip && getIcon(snip.name)) ?? 'text-icon')}
 			aria-hidden
 		/>
-		{snip.name}
+		{snip?.name ?? '404.txt'}
 		<Svg className={styles.close} src={times} onClick={close} />
 	</span>
 )
