@@ -9,6 +9,7 @@ import Tabs from 'components/Tabs'
 import HomeTab from 'components/Tabs/Home'
 import SnipTab from 'components/Tabs/Snip'
 import Download from 'components/Snip/Download'
+import RawCode from 'components/Code/Raw'
 
 import styles from './index.module.scss'
 
@@ -29,7 +30,10 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 			<Download snip={snip} />
 		</div>
 		{snip ? (
-			<Code className={styles.code} snip={snip} />
+			<>
+				<Code className={styles.code} snip={snip} />
+				<RawCode className={styles.rawCode} snip={snip} />
+			</>
 		) : (
 			<p className={styles.notFound}>snip not found</p>
 		)}

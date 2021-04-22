@@ -1,0 +1,13 @@
+@use 'styles/code';
+
+.root {
+	overflow-y: auto;
+	padding: 0 0 16px 16px;
+}
+
+.code {
+	tab-size: 4;
+	white-space: pre-wrap;
+	font-family: code.$font;
+	color: white;
+}

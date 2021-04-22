@@ -1,7 +1,4 @@
-@font-face {
-	font-family: Menlo;
-	src: url('~fonts/menlo.ttf') format('truetype');
-}
+@use 'styles/code';
 
 .root {
 	cursor: text;
@@ -9,7 +6,7 @@
 
 	:global .CodeMirror {
 		height: 100% !important;
-		font-family: Menlo, monospace !important;
+		font-family: code.$font !important;
 
 		&,
 		&-gutters {
