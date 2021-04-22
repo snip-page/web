@@ -30,6 +30,7 @@ router.use((_req, res, next) => {
 		getCSP({
 			directives: {
 				'default-src': [SELF],
+				'connect-src': [SELF, 'https://run.snip.page'],
 				'style-src': [SELF, INLINE],
 				'script-src': [
 					SELF,
