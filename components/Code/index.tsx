@@ -1,15 +1,10 @@
 import { useRef, useEffect } from 'react'
 import CodeMirror from 'codemirror'
-import cx from 'classnames'
 
 import Snip from 'lib/snip'
 import getMode from 'lib/snip/mode'
 import onError from 'lib/error'
-
-import styles from './index.module.scss'
-
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/oceanic-next.css'
+import Host from './Host'
 
 export interface CodeProps {
 	className?: string
@@ -45,7 +40,7 @@ const Code = ({ className, snip }: CodeProps) => {
 			.catch(onError)
 	}, [snip, host])
 
-	return <div className={cx(styles.root, className)} ref={host} />
+	return <Host className={className} ref={host} />
 }
 
 export default Code

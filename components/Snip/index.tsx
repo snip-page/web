@@ -10,12 +10,16 @@ import HomeTab from 'components/Tabs/Home'
 import SnipTab from 'components/Tabs/Snip'
 import Download from 'components/Snip/Download'
 import RawCode from 'components/Code/Raw'
+import Run from 'components/Snip/Run'
 
 import styles from './index.module.scss'
 
 import 'code-icons/styles.css'
 
-const Code = dynamic(() => import('components/Code'), { ssr: false })
+const Code = dynamic(() => import('components/Code'), {
+	ssr: false,
+	loading: () => <div />
+})
 
 const SnipPage: NextPage<Props> = ({ snip }) => (
 	<div className={styles.root}>
@@ -33,6 +37,7 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 			<>
 				<Code className={styles.code} snip={snip} />
 				<RawCode className={styles.rawCode} snip={snip} />
+				<Run snip={snip} />
 			</>
 		) : (
 			<p className={styles.notFound}>snip not found</p>

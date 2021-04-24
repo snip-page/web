@@ -1,8 +1,9 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { saveAs } from 'file-saver'
 import { Svg } from 'react-optimized-image'
 
 import Snip from 'lib/snip'
+import useKey, { OnKeyDown } from 'use/key'
 
 import icon from 'images/download.svg'
 
@@ -22,8 +23,8 @@ const DownloadSnip = ({ snip }: DownloadSnip) => {
 		)
 	}, [snip])
 
-	const onKeyDown = useCallback(
-		(event: KeyboardEvent) => {
+	const onKeyDown: OnKeyDown = useCallback(
+		event => {
 			const { key, metaKey, ctrlKey } = event
 
 			if (key === 's' && (/Mac/.test(navigator.platform) ? metaKey : ctrlKey)) {
@@ -34,10 +35,7 @@ const DownloadSnip = ({ snip }: DownloadSnip) => {
 		[download]
 	)
 
-	useEffect(() => {
-		document.addEventListener('keydown', onKeyDown)
-		return () => document.removeEventListener('keydown', onKeyDown)
-	}, [onKeyDown])
+	useKey(onKeyDown)
 
 	return (
 		<button className={styles.root} disabled={!snip} onClick={download}>
