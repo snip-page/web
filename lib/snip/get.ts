@@ -3,7 +3,7 @@ import HttpError from 'lib/error/http'
 import { ORIGIN } from 'lib/constants'
 
 const getSnip = async (id: string) => {
-	const response = await fetch(`${ORIGIN}/rooms/${id}`)
+	const response = await fetch(`${ORIGIN}/snips/${id}`)
 
 	switch (response.status) {
 		case 200:

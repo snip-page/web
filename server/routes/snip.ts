@@ -1,5 +1,7 @@
 import express, { Router } from 'express'
 
+import RecentSnipsRequest from '../lib/snip/recent/request'
+import getRecentSnips from '../lib/snip/recent'
 import SnipRequest from '../lib/snip/request'
 import getSnip from '../lib/snip/get'
 import CreateSnipData from '../lib/snip/create/data'
@@ -10,6 +12,25 @@ import HttpError from '../lib/error/http'
 import { ORIGIN } from '../lib/constants'
 
 const router = Router()
+
+router.get('/', async (_req, res, next) => {
+	try {
+		const req = _req as RecentSnipsRequest
+		req.snips = await getRecentSnips()
+
+		next()
+	} catch (error) {
+		sendError(res, error)
+	}
+})
+
+router.get('/snips', async (_req, res) => {
+	try {
+		res.send(await getRecentSnips())
+	} catch (error) {
+		sendError(res, error)
+	}
+})
 
 router.get('/:id', async (_req, res, next) => {
 	try {
@@ -22,7 +43,7 @@ router.get('/:id', async (_req, res, next) => {
 	}
 })
 
-router.get('/rooms/:id', async ({ params }, res) => {
+router.get('/snips/:id', async ({ params }, res) => {
 	try {
 		const snip = await getSnip(params.id)
 		if (!snip) throw new HttpError(404, 'Snip not found')

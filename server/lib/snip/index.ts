@@ -1,5 +1,5 @@
-export default interface Snip {
-	id: string
-	name: string
+import SnipMeta from './meta'
+
+export default interface Snip extends SnipMeta {
 	text: string
 }
