@@ -19,7 +19,7 @@ const Code = ({ className, snip }: CodeProps) => {
 
 		getMode(snip)
 			.then(mode => {
-				if (!(host.current && mode)) return
+				if (!host.current) return
 
 				const editor = CodeMirror(host.current, {
 					value: snip.text,

@@ -37,7 +37,7 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 			<>
 				<Code className={styles.code} snip={snip} />
 				<RawCode className={styles.rawCode} snip={snip} />
-				<Run snip={snip} />
+				{snip && <Run snip={snip} />}
 			</>
 		) : (
 			<p className={styles.notFound}>snip not found</p>

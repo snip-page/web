@@ -13,6 +13,7 @@ import runIcon from 'images/run.svg'
 import downIcon from 'images/down.svg'
 
 import styles from './index.module.scss'
+import getLanguage from 'lib/snip/language'
 
 const TextEdit = dynamic(() => import('components/Code/Text'), {
 	ssr: false,
@@ -20,7 +21,7 @@ const TextEdit = dynamic(() => import('components/Code/Text'), {
 })
 
 export interface RunSnipProps {
-	snip: Snip | null
+	snip: Snip
 }
 
 const RunSnip = ({ snip }: RunSnipProps) => {
@@ -31,7 +32,7 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 	const [response, setResponse] = useState<SnipResponse | null>(null)
 
 	const run = useCallback(async () => {
-		if (!(snip && isShowing)) return
+		if (!isShowing) return
 
 		try {
 			setIsLoading(true)
@@ -62,24 +63,26 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 	useKey(onKeyDown)
 
 	return (
-		<div className={styles.root} aria-hidden={!isShowing}>
-			<label className={styles.label}>input</label>
-			<div className={styles.options}>
-				<label className={styles.label}>output</label>
-				<button className={styles.run} disabled={isLoading} onClick={run}>
-					{isLoading ? (
-						<Spinner className={styles.spinner} />
-					) : (
-						<Svg className={styles.runIcon} src={runIcon} />
-					)}
-				</button>
-				<button className={styles.toggle} onClick={toggle}>
-					<Svg className={styles.toggleIcon} src={downIcon} />
-				</button>
+		getLanguage(snip) && (
+			<div className={styles.root} aria-hidden={!isShowing}>
+				<label className={styles.label}>input</label>
+				<div className={styles.options}>
+					<label className={styles.label}>output</label>
+					<button className={styles.run} disabled={isLoading} onClick={run}>
+						{isLoading ? (
+							<Spinner className={styles.spinner} />
+						) : (
+							<Svg className={styles.runIcon} src={runIcon} />
+						)}
+					</button>
+					<button className={styles.toggle} onClick={toggle}>
+						<Svg className={styles.toggleIcon} src={downIcon} />
+					</button>
+				</div>
+				<TextEdit className={styles.value} value={input} setValue={setInput} />
+				<TextEdit className={styles.value} value={response?.stdout ?? ''} />
 			</div>
-			<TextEdit className={styles.value} value={input} setValue={setInput} />
-			<TextEdit className={styles.value} value={response?.stdout ?? ''} />
-		</div>
+		)
 	)
 }
 
