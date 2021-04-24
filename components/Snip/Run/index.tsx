@@ -4,6 +4,7 @@ import { Svg } from 'react-optimized-image'
 
 import Snip from 'lib/snip'
 import runSnip, { SnipResponse } from 'lib/snip/run'
+import getLanguage from 'lib/snip/language'
 import onError from 'lib/error'
 import usePersistentState from 'use/state/persistent'
 import useKey, { OnKeyDown } from 'use/key'
@@ -13,7 +14,6 @@ import runIcon from 'images/run.svg'
 import downIcon from 'images/down.svg'
 
 import styles from './index.module.scss'
-import getLanguage from 'lib/snip/language'
 
 const TextEdit = dynamic(() => import('components/Code/Text'), {
 	ssr: false,
@@ -25,6 +25,8 @@ export interface RunSnipProps {
 }
 
 const RunSnip = ({ snip }: RunSnipProps) => {
+	const language = getLanguage(snip)
+
 	const [isShowing, setIsShowing] = usePersistentState('isRunSnipShowing', true)
 	const [isLoading, setIsLoading] = useState(false)
 
@@ -52,18 +54,22 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 		event => {
 			const { key, metaKey, ctrlKey } = event
 
-			if (key === 'r' && (/Mac/.test(navigator.platform) ? metaKey : ctrlKey)) {
+			if (
+				language &&
+				key === 'r' &&
+				(/Mac/.test(navigator.platform) ? metaKey : ctrlKey)
+			) {
 				event.preventDefault()
 				run()
 			}
 		},
-		[run]
+		[language, run]
 	)
 
 	useKey(onKeyDown)
 
 	return (
-		getLanguage(snip) && (
+		language && (
 			<div className={styles.root} aria-hidden={!isShowing}>
 				<label className={styles.label}>input</label>
 				<div className={styles.options}>
