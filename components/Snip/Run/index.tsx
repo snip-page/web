@@ -5,6 +5,7 @@ import { Svg } from 'react-optimized-image'
 import Snip from 'lib/snip'
 import runSnip, { SnipResponse } from 'lib/snip/run'
 import onError from 'lib/error'
+import usePersistentState from 'use/state/persistent'
 import useKey, { OnKeyDown } from 'use/key'
 import Spinner from 'components/Spinner'
 
@@ -13,21 +14,24 @@ import downIcon from 'images/down.svg'
 
 import styles from './index.module.scss'
 
-const TextEdit = dynamic(() => import('components/Code/Text'), { ssr: false })
+const TextEdit = dynamic(() => import('components/Code/Text'), {
+	ssr: false,
+	loading: () => <div className={styles.value} />
+})
 
 export interface RunSnipProps {
 	snip: Snip | null
 }
 
 const RunSnip = ({ snip }: RunSnipProps) => {
-	const [isShowing, setIsShowing] = useState(true)
+	const [isShowing, setIsShowing] = usePersistentState('isRunSnipShowing', true)
 	const [isLoading, setIsLoading] = useState(false)
 
 	const [input, setInput] = useState('')
 	const [response, setResponse] = useState<SnipResponse | null>(null)
 
 	const run = useCallback(async () => {
-		if (!snip) return
+		if (!(snip && isShowing)) return
 
 		try {
 			setIsLoading(true)
@@ -37,7 +41,7 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 		} finally {
 			setIsLoading(false)
 		}
-	}, [snip, input, setIsLoading, setResponse])
+	}, [snip, isShowing, input, setIsLoading, setResponse])
 
 	const toggle = useCallback(() => {
 		setIsShowing(isShowing => !isShowing)
