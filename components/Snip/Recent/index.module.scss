@@ -1,0 +1,12 @@
+@use 'styles/sizes';
+
+.root {
+	max-width: 90%;
+	width: sizes.$max-width;
+	margin: 0 auto;
+}
+
+.title {
+	margin-bottom: 12px;
+	color: white;
+}

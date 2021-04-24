@@ -14,8 +14,6 @@ import Run from 'components/Snip/Run'
 
 import styles from './index.module.scss'
 
-import 'code-icons/styles.css'
-
 const Code = dynamic(() => import('components/Code'), {
 	ssr: false,
 	loading: () => <div />

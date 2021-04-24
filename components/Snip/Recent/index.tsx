@@ -1,14 +1,17 @@
 import SnipMeta from 'lib/snip/meta'
+import Row from './Row'
+
+import styles from './index.module.scss'
 
 export interface RecentSnipsProps {
 	snips: SnipMeta[]
 }
 
 const RecentSnips = ({ snips }: RecentSnipsProps) => (
-	<section>
-		<h3>recent snips</h3>
+	<section className={styles.root}>
+		<h3 className={styles.title}>recent snips</h3>
 		{snips.map(snip => (
-			<p key={snip.id}>{snip.name}</p>
+			<Row key={snip.id} snip={snip} />
 		))}
 	</section>
 )
