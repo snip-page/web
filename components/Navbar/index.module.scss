@@ -1,0 +1,26 @@
+@use 'styles/sizes';
+@use 'styles/z-index';
+@use 'styles/colors';
+
+.root {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: colors.$background;
+	border-bottom: 1px solid colors.$border;
+	z-index: z-index.$navbar;
+}
+
+.content {
+	display: flex;
+	align-items: center;
+	max-width: 90%;
+	width: sizes.$max-width;
+	height: sizes.$navbar-height;
+	margin: 0 auto;
+}
+
+.title {
+	color: white;
+}

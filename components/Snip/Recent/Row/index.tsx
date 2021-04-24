@@ -14,7 +14,7 @@ const RecentSnip = ({ snip }: RecentSnipProps) => (
 		<a className={styles.root}>
 			<Icon className={styles.icon} snip={snip} />
 			{snip.name}
-			<span className={styles.id}>/{snip.id}</span>
+			<span className={styles.id}>{snip.id}</span>
 		</a>
 	</Link>
 )

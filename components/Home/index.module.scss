@@ -1,0 +1,9 @@
+@use 'styles/sizes';
+
+.root {
+	padding-top: sizes.$navbar-height;
+}
+
+.subtitle {
+	color: white;
+}
