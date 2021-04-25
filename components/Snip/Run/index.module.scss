@@ -28,7 +28,7 @@
 
 .feature {
 	cursor: default !important;
-	margin-left: 12px;
+	margin-left: 14px;
 	color: white;
 
 	.root[aria-hidden='true'] & {
@@ -38,7 +38,7 @@
 
 .run {
 	align-self: stretch;
-	margin-left: 12px;
+	margin-left: 14px;
 	color: white;
 	background: none;
 	transition: opacity 0.15s;
@@ -63,7 +63,7 @@
 
 .toggle {
 	align-self: stretch;
-	margin: 0 12px;
+	margin: 0 14px;
 	color: white;
 	background: none;
 	transition: opacity 0.15s, transform 0.15s;

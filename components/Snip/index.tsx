@@ -8,9 +8,10 @@ import Head from 'components/Head'
 import Tabs from 'components/Tabs'
 import HomeTab from 'components/Tabs/Home'
 import SnipTab from 'components/Tabs/Snip'
-import Download from 'components/Snip/Download'
+import Embed from './Embed'
+import Download from './Download'
 import RawCode from 'components/Code/Raw'
-import Run from 'components/Snip/Run'
+import Run from './Run'
 
 import styles from './index.module.scss'
 
@@ -31,7 +32,10 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 				<HomeTab />
 				<SnipTab snip={snip} />
 			</Tabs>
-			<Download snip={snip} />
+			<div className={styles.actions}>
+				<Embed snip={snip} />
+				<Download snip={snip} />
+			</div>
 		</div>
 		{snip ? (
 			<>
