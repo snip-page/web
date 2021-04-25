@@ -4,7 +4,7 @@ import CodeMirror from 'codemirror'
 import Snip from 'lib/snip'
 import getMode from 'lib/snip/mode'
 import onError from 'lib/error'
-import Host from './Host'
+import Host, { THEME } from './Host'
 
 export interface CodeProps {
 	className?: string
@@ -24,7 +24,7 @@ const Code = ({ className, snip }: CodeProps) => {
 				const editor = CodeMirror(host.current, {
 					value: snip.text,
 					mode,
-					theme: 'oceanic-next',
+					theme: THEME,
 					lineWrapping: true,
 					lineNumbers: true
 				})

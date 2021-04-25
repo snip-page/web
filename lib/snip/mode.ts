@@ -4,22 +4,25 @@ import Snip from '.'
 
 import 'codemirror/mode/meta'
 
-interface Mime {
+interface Type {
+	mime: string
 	mode: string
 }
 
 interface GetMode {
-	findModeByFileName(filename: string): Mime | undefined
+	findModeByFileName(filename: string): Type | undefined
 }
 
-const getMode = async (snip: Snip) => {
-	const code = (CodeMirror as unknown) as GetMode
-	const mode = code.findModeByFileName(snip.name)?.mode
+const code = (CodeMirror as unknown) as GetMode
 
-	if (!mode) return null
+const getMode = async (snip: Snip) => {
+	const type = code.findModeByFileName(snip.name)
+	if (!type) return null
+
+	const { mime, mode } = type
 	if (mode !== 'null') await import(`codemirror/mode/${mode}/${mode}.js`)
 
-	return mode
+	return mime
 }
 
 export default getMode

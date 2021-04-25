@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import CodeMirror from 'codemirror'
 
-import Host from '../Host'
+import Host, { THEME } from '../Host'
 
 export interface TextEditProps {
 	className?: string
@@ -19,7 +19,7 @@ const TextEdit = ({ className, value, setValue }: TextEditProps) => {
 		editor.current = CodeMirror(host.current, {
 			value,
 			readOnly: !setValue,
-			theme: 'oceanic-next',
+			theme: THEME,
 			lineWrapping: true,
 			lineNumbers: true
 		})

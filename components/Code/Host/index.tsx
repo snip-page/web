@@ -4,7 +4,9 @@ import cx from 'classnames'
 import styles from './index.module.scss'
 
 import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/oceanic-next.css'
+import 'codemirror/theme/material-ocean.css'
+
+export const THEME = 'material-ocean'
 
 export interface CodeHostProps {
 	className?: string
