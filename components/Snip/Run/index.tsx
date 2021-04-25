@@ -74,6 +74,9 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 				<label className={styles.label}>input</label>
 				<div className={styles.options}>
 					<label className={styles.label}>output</label>
+					{!isLoading && response && (
+						<p className={styles.time}>{response.time}</p>
+					)}
 					<button className={styles.run} disabled={isLoading} onClick={run}>
 						{isLoading ? (
 							<Spinner className={styles.spinner} />
