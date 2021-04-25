@@ -1,10 +1,10 @@
 import { NextPage } from 'next'
-import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
 import SnipRequest from 'lib/snip/request'
 import getSnip from 'lib/snip/get'
 import Props from 'lib/snip/page/props'
+import Head from 'components/Head'
 import Tabs from 'components/Tabs'
 import HomeTab from 'components/Tabs/Home'
 import SnipTab from 'components/Tabs/Snip'
@@ -21,9 +21,10 @@ const Code = dynamic(() => import('components/Code'), {
 
 const SnipPage: NextPage<Props> = ({ snip }) => (
 	<div className={styles.root}>
-		<Head>
-			<title key="title">{snip?.name ?? '404.txt'} | snip</title>
-		</Head>
+		<Head
+			title={`${snip?.name ?? '404.txt'} | snip`}
+			description={snip ? null : "Uh oh! There's nothing at this URL."}
+		/>
 		<div className={styles.options}>
 			<Tabs>
 				<HomeTab />
@@ -35,7 +36,7 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 			<>
 				<Code className={styles.code} snip={snip} />
 				<RawCode className={styles.rawCode} snip={snip} />
-				{snip && <Run snip={snip} />}
+				<Run snip={snip} />
 			</>
 		) : (
 			<p className={styles.notFound}>snip not found</p>
