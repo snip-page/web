@@ -7,6 +7,7 @@ const getRecentSnips = async () => {
 			`
 			SELECT id, name
 			FROM snips
+			ORDER BY created DESC
 			LIMIT 100
 			`
 		)
