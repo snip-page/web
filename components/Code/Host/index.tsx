@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import CodeMirror from 'codemirror'
 import cx from 'classnames'
 
 import styles from './index.module.scss'
@@ -6,7 +7,13 @@ import styles from './index.module.scss'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material-ocean.css'
 
-export const THEME = 'material-ocean'
+export const OPTIONS: CodeMirror.EditorConfiguration = {
+	theme: 'material-ocean',
+	indentUnit: 4,
+	indentWithTabs: true,
+	lineWrapping: true,
+	lineNumbers: true
+}
 
 export interface CodeHostProps {
 	className?: string

@@ -4,7 +4,7 @@ import CodeMirror from 'codemirror'
 import Snip from 'lib/snip'
 import getMode from 'lib/snip/mode'
 import onError from 'lib/error'
-import Host, { THEME } from './Host'
+import Host, { OPTIONS } from './Host'
 
 export interface CodeProps {
 	className?: string
@@ -22,11 +22,9 @@ const Code = ({ className, snip }: CodeProps) => {
 				if (!host.current) return
 
 				const editor = CodeMirror(host.current, {
+					...OPTIONS,
 					value: snip.text,
-					mode,
-					theme: THEME,
-					lineWrapping: true,
-					lineNumbers: true
+					mode
 				})
 
 				editor.on('change', () => {
