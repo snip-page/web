@@ -1,4 +1,5 @@
 @use 'react-toastify/dist/ReactToastify' as *;
+@use 'balloon-css' as *;
 
 @use 'styles/colors';
 
@@ -42,5 +43,19 @@ button {
 	&--dark {
 		background: colors.$background !important;
 		border: 1px solid colors.$border !important;
+	}
+}
+
+[data-balloon-pos] {
+	&::before {
+		content: none !important;
+	}
+
+	&::after {
+		font-family: inherit !important;
+		font-size: 14.5px !important;
+		background: colors.$background !important;
+		border: 1px solid colors.$border !important;
+		border-radius: 8px !important;
 	}
 }

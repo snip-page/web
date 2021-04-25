@@ -25,11 +25,26 @@
 	}
 }
 
+.feature {
+	cursor: default !important;
+	margin-left: 12px;
+	color: white;
+
+	.root[aria-hidden='true'] & {
+		display: none;
+	}
+}
+
 .run {
 	align-self: stretch;
 	margin-left: 12px;
 	color: white;
 	background: none;
+	transition: opacity 0.15s;
+
+	&:hover {
+		opacity: 0.7;
+	}
 
 	.root[aria-hidden='true'] & {
 		display: none;
@@ -50,7 +65,11 @@
 	margin: 0 12px;
 	color: white;
 	background: none;
-	transition: transform 0.15s;
+	transition: opacity 0.15s, transform 0.15s;
+
+	&:hover {
+		opacity: 0.7;
+	}
 
 	.root[aria-hidden='true'] & {
 		transform: rotate(0.5turn);

@@ -5,6 +5,7 @@ import { Svg } from 'react-optimized-image'
 import Snip from 'lib/snip'
 import runSnip, { SnipResponse } from 'lib/snip/run'
 import getLanguage from 'lib/snip/language'
+import formatSize from 'lib/format/size'
 import onError from 'lib/error'
 import usePersistentState from 'use/state/persistent'
 import useKey, { OnKeyDown } from 'use/key'
@@ -75,7 +76,22 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 				<div className={styles.options}>
 					<label className={styles.label}>output</label>
 					{!isLoading && response && (
-						<p className={styles.time}>{response.time}</p>
+						<p
+							className={styles.feature}
+							aria-label="execution time"
+							data-balloon-pos="up"
+						>
+							{response.time}s
+						</p>
+					)}
+					{!isLoading && response && (
+						<p
+							className={styles.feature}
+							aria-label="memory used"
+							data-balloon-pos="up"
+						>
+							{formatSize(response.memory)}
+						</p>
 					)}
 					<button className={styles.run} disabled={isLoading} onClick={run}>
 						{isLoading ? (
