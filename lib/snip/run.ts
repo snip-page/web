@@ -4,7 +4,7 @@ import { RUN_ORIGIN } from 'lib/constants'
 import getLanguage from './language'
 
 const TIME_LIMIT = 5 // 5 seconds
-const MEMORY_LIMIT = 20 * 1024 // 20 MB
+const MEMORY_LIMIT = 30 * 1024 // 30 MB
 
 export interface SnipResponse {
 	stdout: string | null
