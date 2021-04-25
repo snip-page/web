@@ -6,6 +6,7 @@ import RecentSnipsRequest from 'lib/snip/recent/request'
 import getRecentSnips from 'lib/snip/recent'
 import Navbar from 'components/Navbar'
 import Info from './Info'
+import Install from './Install'
 import RecentSnips from 'components/Snip/Recent'
 
 import styles from './index.module.scss'
@@ -17,7 +18,8 @@ const Home: NextPage<HomeProps> = ({ snips }) => (
 		</Head>
 		<Navbar />
 		<Info />
-		<RecentSnips snips={snips} />
+		<Install />
+		<RecentSnips className={styles.snips} snips={snips} />
 	</div>
 )
 

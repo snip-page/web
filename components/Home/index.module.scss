@@ -1,9 +1,11 @@
 @use 'styles/sizes';
 
+$padding: 30px;
+
 .root {
-	padding-top: sizes.$navbar-height;
+	padding: (sizes.$navbar-height + $padding) 0 $padding;
 }
 
-.subtitle {
-	color: white;
+.snips {
+	margin-top: $padding;
 }
