@@ -17,6 +17,7 @@ const Home: NextPage<HomeProps> = ({ snips }) => (
 			title="snip - share your code"
 			description="Share your code with one command. Allow others to run your code in an
 			online IDE."
+			image=""
 		/>
 		<Navbar />
 		<Info />

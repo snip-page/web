@@ -12,6 +12,7 @@ const NotFound: NextPage = () => (
 		<Head
 			title="404.txt | snip"
 			description="Uh oh! There's nothing at this URL."
+			image=""
 		/>
 		<Tabs>
 			<HomeTab />

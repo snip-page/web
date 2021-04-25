@@ -3,6 +3,9 @@ import HttpError from 'lib/error/http'
 import { RUN_ORIGIN } from 'lib/constants'
 import getLanguage from './language'
 
+const TIME_LIMIT = 5 // 5 seconds
+const MEMORY_LIMIT = 20 * 1024 // 20 MB
+
 export interface SnipResponse {
 	stdout: string | null
 	time: string
@@ -19,10 +22,12 @@ const runSnip = async (snip: Snip, input: string) => {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify({
-				language_id: language,
 				source_code: snip.text,
+				language_id: language,
 				stdin: input,
-				redirect_stderr_to_stdout: true
+				redirect_stderr_to_stdout: true,
+				cpu_time_limit: TIME_LIMIT,
+				memory_limit: MEMORY_LIMIT
 			})
 		}
 	)
