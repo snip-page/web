@@ -1,0 +1,15 @@
+@use 'styles/colors';
+
+.root {
+	display: grid;
+	grid: auto 1fr / 1fr;
+	height: 100%;
+}
+
+.message {
+	margin: auto;
+	font-size: 30px;
+	font-weight: 600;
+	text-align: center;
+	color: white;
+}
