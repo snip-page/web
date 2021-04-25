@@ -21,7 +21,6 @@ router.use((_req, res, next) => {
 	res.header('x-content-type-options', 'nosniff')
 	res.header('x-dns-prefetch-control', 'off')
 	res.header('x-download-options', 'noopen')
-	res.header('x-frame-options', 'SAMEORIGIN')
 	res.header('x-permitted-cross-domain-policies', 'none')
 	res.header('x-xss-protection', '0')
 
