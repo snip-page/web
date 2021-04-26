@@ -12,7 +12,10 @@ router.get('/:id/preview', async (req, res) => {
 		const snip = await getSnip(req.params.id)
 		if (!snip) throw new HttpError(404, 'Snip not found')
 
-		res.type('png').send(await getImage(snip))
+		const image = await getImage(snip)
+
+		res.header('cache-control', 'public, max-age=31536000, immutable')
+		res.type('png').send(image)
 	} catch (error) {
 		sendError(res, error)
 	}

@@ -7,6 +7,8 @@ import HttpError from '../../error/http'
 const WIDTH = 600
 const HEIGHT = 300
 
+let isLoaded = false
+
 const getImage = async (snip: Snip) => {
 	const browser = await getBrowser()
 	const page = await browser.newPage()
@@ -15,7 +17,7 @@ const getImage = async (snip: Snip) => {
 		await page.setViewport({ width: WIDTH, height: HEIGHT })
 
 		await page.setContent(await getContent(getCode(snip)), {
-			waitUntil: 'networkidle0'
+			waitUntil: isLoaded ? 'load' : 'networkidle0'
 		})
 
 		const code = await page.$('#code')
@@ -29,6 +31,7 @@ const getImage = async (snip: Snip) => {
 
 		return data
 	} finally {
+		isLoaded = true
 		await page.close()
 	}
 }
