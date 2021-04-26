@@ -1,12 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<base href="{{origin}}" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="preload" href="/styles/preview.css" as="style" />
-		<link rel="preload" href="/fonts/menlo.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
-		<link rel="stylesheet" href="/styles/preview.css" />
+		<style>
+			@font-face {
+				font-family: Menlo;
+				font-display: swap;
+				src: url('data:font/ttf;base64,{{{font}}}') format('truetype');
+			}
+
+			*,
+			::before,
+			::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				border: none;
+				outline: none;
+			}
+
+			body {
+				background: #0f111a;
+			}
+
+			#code {
+				padding: 12px 16px;
+				line-height: 1.5;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				tab-size: 4;
+				font-family: Menlo, monospace;
+				color: #ccc;
+			}
+
+			.token.comment,
+			.token.block-comment,
+			.token.prolog,
+			.token.doctype,
+			.token.cdata {
+				color: #999;
+			}
+
+			.token.punctuation {
+				color: #ccc;
+			}
+
+			.token.tag,
+			.token.attr-name,
+			.token.namespace,
+			.token.deleted {
+				color: #e2777a;
+			}
+
+			.token.function-name {
+				color: #6196cc;
+			}
+
+			.token.boolean,
+			.token.number,
+			.token.function {
+				color: #f08d49;
+			}
+
+			.token.property,
+			.token.class-name,
+			.token.constant,
+			.token.symbol {
+				color: #f8c555;
+			}
+
+			.token.selector,
+			.token.important,
+			.token.atrule,
+			.token.keyword,
+			.token.builtin {
+				color: #cc99cd;
+			}
+
+			.token.string,
+			.token.char,
+			.token.attr-value,
+			.token.regex,
+			.token.variable {
+				color: #7ec699;
+			}
+
+			.token.operator,
+			.token.entity,
+			.token.url {
+				color: #67cdcc;
+			}
+
+			.token.important,
+			.token.bold {
+				font-weight: bold;
+			}
+			.token.italic {
+				font-style: italic;
+			}
+
+			.token.entity {
+				cursor: help;
+			}
+
+			.token.inserted {
+				color: green;
+			}
+		</style>
 	</head>
 	<body>
 		<pre id="code">{{{code}}}</pre>

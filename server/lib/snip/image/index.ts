@@ -7,18 +7,13 @@ import HttpError from '../../error/http'
 const WIDTH = 600
 const HEIGHT = 300
 
-let isLoaded = false
-
 const getImage = async (snip: Snip) => {
 	const browser = await getBrowser()
 	const page = await browser.newPage()
 
 	try {
 		await page.setViewport({ width: WIDTH, height: HEIGHT })
-
-		await page.setContent(await getContent(getCode(snip)), {
-			waitUntil: isLoaded ? 'load' : 'networkidle0'
-		})
+		await page.setContent(await getContent(getCode(snip)))
 
 		const code = await page.$('#code')
 		if (!code) throw new HttpError(500, 'Unable to find the code element')
@@ -31,7 +26,6 @@ const getImage = async (snip: Snip) => {
 
 		return data
 	} finally {
-		isLoaded = true
 		await page.close()
 	}
 }

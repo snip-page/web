@@ -2,12 +2,12 @@ import { readFile } from 'fs'
 import { join } from 'path'
 import { TemplateDelegate, compile } from 'handlebars'
 
-import { ROOT, ORIGIN } from '../../constants'
+import { ROOT } from '../../../constants'
 
 const PATH = join(ROOT, 'templates', 'preview.hbs')
 
 interface TemplateContext {
-	origin: string
+	font: string
 	code: string
 }
 
@@ -25,7 +25,4 @@ const getTemplate = async () => {
 	return (template = compile(document))
 }
 
-const getContent = async (code: string) =>
-	(await getTemplate())({ origin: ORIGIN, code })
-
-export default getContent
+export default getTemplate
