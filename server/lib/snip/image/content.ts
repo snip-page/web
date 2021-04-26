@@ -2,9 +2,9 @@ import { readFile } from 'fs'
 import { join } from 'path'
 import { TemplateDelegate, compile } from 'handlebars'
 
-import { ORIGIN } from '../../constants'
+import { ROOT, ORIGIN } from '../../constants'
 
-const PATH = join(__dirname, 'template.hbs')
+const PATH = join(ROOT, 'templates', 'image.hbs')
 
 interface TemplateContext {
 	origin: string
