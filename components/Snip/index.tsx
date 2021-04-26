@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -20,34 +21,38 @@ const Code = dynamic(() => import('components/Code'), {
 	loading: () => <div />
 })
 
-const SnipPage: NextPage<Props> = ({ snip }) => (
-	<div className={styles.root}>
-		<Head
-			title={`${snip?.name ?? '404.txt'} | snip`}
-			description={snip ? null : "Uh oh! There's nothing at this URL."}
-			image={snip ? `/${snip.id}/preview` : ''}
-		/>
-		<div className={styles.options}>
-			<Tabs>
-				<HomeTab />
-				<SnipTab snip={snip} />
-			</Tabs>
-			<div className={styles.actions}>
-				<Embed snip={snip} />
-				<Download snip={snip} />
+const SnipPage: NextPage<Props> = ({ snip: _snip }) => {
+	const [snip, setSnip] = useState(_snip)
+
+	return (
+		<div className={styles.root}>
+			<Head
+				title={`${snip?.name ?? '404.txt'} | snip`}
+				description={snip ? null : "Uh oh! There's nothing at this URL."}
+				image={snip ? `/${snip.id}/preview` : ''}
+			/>
+			<div className={styles.options}>
+				<Tabs>
+					<HomeTab />
+					<SnipTab snip={snip} />
+				</Tabs>
+				<div className={styles.actions}>
+					<Embed snip={snip} />
+					<Download snip={snip} />
+				</div>
 			</div>
+			{snip ? (
+				<>
+					<Code className={styles.code} snip={snip} setSnip={setSnip} />
+					<RawCode className={styles.rawCode} snip={snip} />
+					<Run snip={snip} />
+				</>
+			) : (
+				<p className={styles.notFound}>snip not found</p>
+			)}
 		</div>
-		{snip ? (
-			<>
-				<Code className={styles.code} snip={snip} />
-				<RawCode className={styles.rawCode} snip={snip} />
-				<Run snip={snip} />
-			</>
-		) : (
-			<p className={styles.notFound}>snip not found</p>
-		)}
-	</div>
-)
+	)
+}
 
 SnipPage.getInitialProps = async ({ req, res, query }) => {
 	const snip = req

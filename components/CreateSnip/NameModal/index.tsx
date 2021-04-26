@@ -1,4 +1,5 @@
 import {
+	SetStateAction,
 	FormEvent,
 	ChangeEvent,
 	useRef,
@@ -15,9 +16,15 @@ import styles from './index.module.scss'
 
 export interface NameModalProps extends IsModalShowingProps {
 	snip: Snip
+	setSnip(snip: SetStateAction<Snip>): void
 }
 
-const NameModal = ({ snip, isShowing, setIsShowing }: NameModalProps) => {
+const NameModal = ({
+	snip,
+	setSnip,
+	isShowing,
+	setIsShowing
+}: NameModalProps) => {
 	const input = useRef<HTMLInputElement | null>(null)
 	const [name, setName] = useState(snip.name)
 
@@ -25,10 +32,10 @@ const NameModal = ({ snip, isShowing, setIsShowing }: NameModalProps) => {
 		(event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault()
 
-			snip.name = name
+			setSnip(snip => ({ ...snip, name }))
 			setIsShowing(false)
 		},
-		[snip, name, setIsShowing]
+		[name, setSnip, setIsShowing]
 	)
 
 	const onChange = useCallback(

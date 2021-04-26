@@ -93,7 +93,11 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 							{formatSize(response.memory)}
 						</p>
 					)}
-					<button className={styles.run} disabled={isLoading} onClick={run}>
+					<button
+						className={styles.run}
+						disabled={isLoading || !snip.text}
+						onClick={run}
+					>
 						{isLoading ? (
 							<Spinner className={styles.spinner} />
 						) : (

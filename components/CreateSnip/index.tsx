@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -21,7 +21,7 @@ const Code = dynamic(() => import('components/Code'), {
 const EMPTY_SNIP: Snip = { id: '', name: '', text: '' }
 
 const CreateSnip: NextPage = () => {
-	const snip = useRef(EMPTY_SNIP).current
+	const [snip, setSnip] = useState(EMPTY_SNIP)
 	const [isNameModalShowing, setIsNameModalShowing] = useState(true)
 
 	const rename = useCallback(() => {
@@ -40,10 +40,11 @@ const CreateSnip: NextPage = () => {
 					<Download snip={snip} />
 				</div>
 			</div>
-			<Code className={styles.code} snip={snip} />
+			<Code className={styles.code} snip={snip} setSnip={setSnip} />
 			<Run snip={snip} />
 			<NameModal
 				snip={snip}
+				setSnip={setSnip}
 				isShowing={isNameModalShowing}
 				setIsShowing={setIsNameModalShowing}
 			/>

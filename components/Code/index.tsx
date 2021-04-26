@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { SetStateAction, useRef, useEffect } from 'react'
 import CodeMirror from 'codemirror'
 
 import Snip from 'lib/snip'
@@ -9,9 +9,10 @@ import Host, { OPTIONS } from './Host'
 export interface CodeProps {
 	className?: string
 	snip: Snip
+	setSnip(snip: SetStateAction<Snip> | SetStateAction<Snip | null>): void
 }
 
-const Code = ({ className, snip }: CodeProps) => {
+const Code = ({ className, snip, setSnip }: CodeProps) => {
 	const host = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
@@ -28,7 +29,13 @@ const Code = ({ className, snip }: CodeProps) => {
 				})
 
 				editor.on('change', () => {
-					snip.text = editor.getValue()
+					setSnip(
+						(snip: Snip | null) =>
+							snip && {
+								...snip,
+								text: editor.getValue()
+							}
+					)
 				})
 
 				setTimeout(() => {
@@ -36,7 +43,7 @@ const Code = ({ className, snip }: CodeProps) => {
 				}, 1000)
 			})
 			.catch(onError)
-	}, [snip, host])
+	}, [host, setSnip])
 
 	return <Host className={className} ref={host} />
 }
