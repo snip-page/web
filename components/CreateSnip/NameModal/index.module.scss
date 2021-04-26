@@ -1,0 +1,27 @@
+.root {
+	position: relative;
+	color: white;
+}
+
+.icon {
+	position: absolute;
+	top: 8px;
+	left: 11px;
+}
+
+.name {
+	width: 300px;
+	padding: 8px 12px 8px 33px;
+	background: transparentize(white, 0.95);
+	border-radius: 8px;
+	transition: background 0.15s;
+
+	&::placeholder {
+		color: transparentize(white, 0.5);
+	}
+
+	&:hover,
+	&:focus {
+		background: transparentize(white, 0.9);
+	}
+}

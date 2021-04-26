@@ -12,7 +12,7 @@ export interface RecentSnipProps {
 const RecentSnip = ({ snip }: RecentSnipProps) => (
 	<Link href={`/${snip.id}`}>
 		<a className={styles.root}>
-			<Icon className={styles.icon} snip={snip} />
+			<Icon className={styles.icon} name={snip.name} />
 			{snip.name}
 			<span className={styles.id}>{snip.id}</span>
 		</a>

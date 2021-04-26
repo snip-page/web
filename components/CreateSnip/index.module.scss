@@ -1,0 +1,23 @@
+@use 'styles/colors';
+
+.root {
+	display: grid;
+	grid: auto 1fr / 1fr;
+	height: 100%;
+}
+
+.options {
+	display: grid;
+	grid: auto / 1fr auto;
+	align-items: center;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	padding: 0 14px;
+}
+
+.code {
+	padding-top: 8px;
+}

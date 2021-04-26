@@ -1,18 +1,17 @@
 import cx from 'classnames'
 
-import SnipMeta from 'lib/snip/meta'
 import getIcon, { DEFAULT_ICON } from 'lib/snip/icon'
 
 import 'code-icons/styles.css'
 
 export interface SnipIconProps {
 	className?: string
-	snip: SnipMeta | null
+	name: string | null
 }
 
-const SnipIcon = ({ className, snip }: SnipIconProps) => (
+const SnipIcon = ({ className, name }: SnipIconProps) => (
 	<span
-		className={cx(className, snip ? getIcon(snip) : DEFAULT_ICON)}
+		className={cx(className, name ? getIcon(name) : DEFAULT_ICON)}
 		aria-hidden
 	/>
 )

@@ -35,7 +35,7 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 	const [response, setResponse] = useState<SnipResponse | null>(null)
 
 	const run = useCallback(async () => {
-		if (!isShowing) return
+		if (!(isShowing && snip.text)) return
 
 		try {
 			setIsLoading(true)
