@@ -25,7 +25,7 @@ const SnipPage: NextPage<Props> = ({ snip }) => (
 		<Head
 			title={`${snip?.name ?? '404.txt'} | snip`}
 			description={snip ? null : "Uh oh! There's nothing at this URL."}
-			image={snip ? `/snips/${snip.id}/image` : ''}
+			image={snip ? `/${snip.id}/preview` : ''}
 		/>
 		<div className={styles.options}>
 			<Tabs>

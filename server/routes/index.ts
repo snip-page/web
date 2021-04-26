@@ -3,7 +3,7 @@ import { Router } from 'express'
 import security from './security'
 import snip from './snip'
 import recentSnips from './snip/recent'
-import snipImage from './snip/image'
+import snipPreview from './snip/preview'
 
 const router = Router()
 
@@ -11,6 +11,6 @@ router.use(security)
 
 router.use(snip)
 router.use(recentSnips)
-router.use(snipImage)
+router.use(snipPreview)
 
 export default router

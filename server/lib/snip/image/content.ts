@@ -4,7 +4,7 @@ import { TemplateDelegate, compile } from 'handlebars'
 
 import { ROOT, ORIGIN } from '../../constants'
 
-const PATH = join(ROOT, 'templates', 'image.hbs')
+const PATH = join(ROOT, 'templates', 'preview.hbs')
 
 interface TemplateContext {
 	origin: string

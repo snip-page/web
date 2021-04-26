@@ -7,7 +7,7 @@ import sendError from '../../lib/error/send'
 
 const router = Router()
 
-router.get('/snips/:id/image', async (req, res) => {
+router.get('/:id/preview', async (req, res) => {
 	try {
 		const snip = await getSnip(req.params.id)
 		if (!snip) throw new HttpError(404, 'Snip not found')
