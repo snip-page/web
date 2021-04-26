@@ -1,6 +1,7 @@
 import { highlight, languages } from 'prismjs'
 import loadLanguages from 'prismjs/components/'
 import _getLanguage from 'filename2prism'
+import { encode } from 'html-entities'
 
 import Snip from '..'
 
@@ -11,7 +12,7 @@ const getLanguage = ({ name }: Snip) => {
 
 const getCode = (snip: Snip) => {
 	const language = getLanguage(snip)
-	if (!language) return snip.text
+	if (!language) return encode(snip.text)
 
 	loadLanguages([language])
 	return highlight(snip.text, languages[language], language)
