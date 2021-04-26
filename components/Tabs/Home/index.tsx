@@ -9,7 +9,7 @@ const HomeTab = () => (
 	<Link href="/">
 		<a className={styles.root}>
 			<Svg className={styles.icon} src={icon} />
-			home
+			snip.page
 		</a>
 	</Link>
 )
