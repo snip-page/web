@@ -1,6 +1,6 @@
-import Snip from '.'
+import SnipMeta from './meta'
 
-const getExtension = ({ name }: Snip) => {
+const getExtension = ({ name }: SnipMeta) => {
 	const dot = name.lastIndexOf('.')
 	return ~dot ? name.slice(dot + 1).toLowerCase() : null
 }
