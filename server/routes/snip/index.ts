@@ -7,7 +7,6 @@ import createSnip from '../../lib/snip/create'
 import rateLimit from '../../lib/rate/limit'
 import sendError from '../../lib/error/send'
 import HttpError from '../../lib/error/http'
-import { ORIGIN } from '../../lib/constants'
 
 const router = Router()
 
@@ -50,7 +49,7 @@ router.post(
 			if (!(typeof name === 'string' && typeof text === 'string'))
 				throw new HttpError(400, 'Invalid body')
 
-			res.send(`${ORIGIN}/${await createSnip(body)}`)
+			res.send(await createSnip(body))
 		} catch (error) {
 			sendError(res, error)
 		}

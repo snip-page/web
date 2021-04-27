@@ -6,6 +6,7 @@ import Snip from 'lib/snip'
 import Icon from 'components/Snip/Icon'
 
 import closeIcon from 'images/times.svg'
+import unsavedIcon from 'images/circle.svg'
 
 import styles from './index.module.scss'
 
@@ -16,14 +17,19 @@ const close = (event: MouseEvent<SVGSVGElement>) => {
 
 export interface SnipTabProps {
 	snip: Snip | null
+	saved?: boolean
 	onClick?(): void
 }
 
-const SnipTab = ({ snip, onClick }: SnipTabProps) => (
+const SnipTab = ({ snip, saved = true, onClick }: SnipTabProps) => (
 	<span className={styles.root} onClick={onClick}>
 		<Icon className={styles.icon} name={snip && snip.name} />
 		{snip ? snip.name || 'untitled.txt' : '404.txt'}
-		<Svg className={styles.close} src={closeIcon} onClick={close} />
+		{saved ? (
+			<Svg className={styles.close} src={closeIcon} onClick={close} />
+		) : (
+			<Svg className={styles.close} src={unsavedIcon} onClick={close} />
+		)}
 	</span>
 )
 
