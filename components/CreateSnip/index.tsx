@@ -3,6 +3,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
 import Snip from 'lib/snip'
+import snipEquals from 'lib/snip/equals'
 import useKey, { OnKeyDown } from 'use/key'
 import Head from 'components/Head'
 import Tabs from 'components/Tabs'
@@ -10,8 +11,8 @@ import HomeTab from 'components/Tabs/Home'
 import SnipTab from 'components/Tabs/Snip'
 import Download from 'components/Snip/Download'
 import Run from 'components/Snip/Run'
-import NameModal from './NameModal'
-import SaveModal from './SaveModal'
+import Name from 'components/Snip/Name'
+import Save from 'components/Snip/Save'
 
 import styles from './index.module.scss'
 
@@ -58,7 +59,7 @@ const CreateSnip: NextPage = () => {
 					<HomeTab />
 					<SnipTab
 						snip={snip}
-						saved={snip.text === EMPTY_SNIP.text}
+						saved={snipEquals(snip, EMPTY_SNIP)}
 						onClick={rename}
 					/>
 				</Tabs>
@@ -68,13 +69,13 @@ const CreateSnip: NextPage = () => {
 			</div>
 			<Code className={styles.code} snip={snip} setSnip={setSnip} />
 			<Run snip={snip} />
-			<NameModal
+			<Name
 				snip={snip}
 				setSnip={setSnip}
 				isShowing={isNameModalShowing}
 				setIsShowing={setIsNameModalShowing}
 			/>
-			<SaveModal
+			<Save
 				snip={snip}
 				isShowing={isSaveModalShowing}
 				setIsShowing={setIsSaveModalShowing}

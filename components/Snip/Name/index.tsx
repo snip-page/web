@@ -14,17 +14,17 @@ import Icon from 'components/Snip/Icon'
 
 import styles from './index.module.scss'
 
-export interface NameModalProps extends IsModalShowingProps {
+export interface SnipNameProps extends IsModalShowingProps {
 	snip: Snip
-	setSnip(snip: SetStateAction<Snip>): void
+	setSnip(snip: SetStateAction<Snip> | SetStateAction<Snip | null>): void
 }
 
-const NameModal = ({
+const SnipName = ({
 	snip,
 	setSnip,
 	isShowing,
 	setIsShowing
-}: NameModalProps) => {
+}: SnipNameProps) => {
 	const input = useRef<HTMLInputElement | null>(null)
 	const [name, setName] = useState(snip.name)
 
@@ -32,7 +32,7 @@ const NameModal = ({
 		(event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault()
 
-			setSnip(snip => ({ ...snip, name }))
+			setSnip((snip: Snip | null) => snip && { ...snip, name })
 			setIsShowing(false)
 		},
 		[name, setSnip, setIsShowing]
@@ -46,10 +46,16 @@ const NameModal = ({
 	)
 
 	useEffect(() => {
+		if (isShowing) setName(snip.name)
+	}, [isShowing, snip.name, setName])
+
+	useEffect(() => {
 		input.current?.[isShowing ? 'focus' : 'blur']()
 	}, [isShowing, input])
 
 	useEffect(() => {
+		if (!isShowing) return
+
 		setTimeout(() => {
 			input.current?.focus()
 		}, 100)
@@ -71,4 +77,4 @@ const NameModal = ({
 	)
 }
 
-export default NameModal
+export default SnipName
