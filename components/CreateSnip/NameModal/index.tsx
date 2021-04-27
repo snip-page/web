@@ -49,6 +49,12 @@ const NameModal = ({
 		input.current?.[isShowing ? 'focus' : 'blur']()
 	}, [isShowing, input])
 
+	useEffect(() => {
+		setTimeout(() => {
+			input.current?.focus()
+		}, 100)
+	}, [input])
+
 	return (
 		<Modal isShowing={isShowing} setIsShowing={setIsShowing}>
 			<form className={styles.root} onSubmit={onSubmit}>

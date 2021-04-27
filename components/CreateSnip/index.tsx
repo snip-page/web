@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -25,7 +25,7 @@ const EMPTY_SNIP: Snip = { id: '', name: '', text: '' }
 const CreateSnip: NextPage = () => {
 	const [snip, setSnip] = useState(EMPTY_SNIP)
 
-	const [isNameModalShowing, setIsNameModalShowing] = useState(false)
+	const [isNameModalShowing, setIsNameModalShowing] = useState(true)
 	const [isSaveModalShowing, setIsSaveModalShowing] = useState(false)
 
 	const save = useCallback(() => {
@@ -47,12 +47,6 @@ const CreateSnip: NextPage = () => {
 		},
 		[save]
 	)
-
-	useEffect(() => {
-		setTimeout(() => {
-			setIsNameModalShowing(true)
-		}, 100)
-	}, [setIsNameModalShowing])
 
 	useKey(onKeyDown)
 
