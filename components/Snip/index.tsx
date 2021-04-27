@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -52,6 +52,10 @@ const SnipPage: NextPage<Props> = ({ snip: initialSnip }) => {
 	)
 
 	useKey(onKeyDown)
+
+	useEffect(() => {
+		setSnip(initialSnip)
+	}, [initialSnip, setSnip])
 
 	return (
 		<div className={styles.root}>

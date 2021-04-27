@@ -10,9 +10,9 @@ import unsavedIcon from 'images/circle.svg'
 
 import styles from './index.module.scss'
 
-const close = (event: MouseEvent<SVGSVGElement>) => {
+const close = async (event: MouseEvent<SVGSVGElement>) => {
 	event.stopPropagation()
-	Router.push('/')
+	await Router.push('/')
 }
 
 export interface SnipTabProps {

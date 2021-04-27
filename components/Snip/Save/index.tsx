@@ -38,13 +38,17 @@ const SaveSnip = ({ snip, isShowing, setIsShowing }: SaveSnipProps) => {
 				setIsLoading(true)
 
 				const id = await createSnip({ ...snip, name })
-				Router.push(`/${id}`)
 
 				copy(`${ORIGIN}/${id}`)
 				toast.dark('Copied link to clipboard')
+
+				await Router.push(`/${id}`)
+
+				setIsShowing(false)
 			} catch (error) {
-				setIsLoading(false)
 				onError(error)
+			} finally {
+				setIsLoading(false)
 			}
 		},
 		[snip, name, setIsLoading]
