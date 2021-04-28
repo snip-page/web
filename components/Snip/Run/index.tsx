@@ -75,7 +75,7 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 				<label className={styles.label}>input</label>
 				<div className={styles.options}>
 					<label className={styles.label}>output</label>
-					{!isLoading && response && (
+					{!isLoading && response?.time && (
 						<p
 							className={styles.feature}
 							aria-label="execution time"
@@ -84,7 +84,7 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 							{response.time}s
 						</p>
 					)}
-					{!isLoading && response && (
+					{!isLoading && response?.memory && (
 						<p
 							className={styles.feature}
 							aria-label="memory used"
@@ -109,7 +109,12 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 					</button>
 				</div>
 				<TextEdit className={styles.value} value={input} setValue={setInput} />
-				<TextEdit className={styles.value} value={response?.stdout ?? ''} />
+				<TextEdit
+					className={styles.value}
+					value={[response?.compile_output, response?.stdout]
+						.filter(Boolean)
+						.join('\n')}
+				/>
 			</div>
 		)
 	)

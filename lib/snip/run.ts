@@ -8,8 +8,9 @@ const MEMORY_LIMIT = 30 * 1024 // 30 MB
 
 export interface SnipResponse {
 	stdout: string | null
-	time: string
-	memory: number
+	compile_output: string | null
+	time: string | null
+	memory: number | null
 }
 
 const runSnip = async (snip: Snip, input: string) => {
@@ -17,7 +18,7 @@ const runSnip = async (snip: Snip, input: string) => {
 	if (!language) throw new Error('Unable to infer language')
 
 	const submission = await fetch(
-		`${RUN_ORIGIN}/submissions?wait=true&fields=stdout,time,memory`,
+		`${RUN_ORIGIN}/submissions?wait=true&fields=stdout,compile_output,time,memory`,
 		{
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
