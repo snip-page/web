@@ -72,6 +72,7 @@ const SnipName = ({
 					value={name}
 					onChange={onChange}
 				/>
+				<button className={styles.rename}>rename</button>
 			</form>
 		</Modal>
 	)

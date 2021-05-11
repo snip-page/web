@@ -2,6 +2,8 @@ import { ReactNode, useRef, useState, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
 
+import useKey, { OnKeyDown } from 'use/key'
+
 import styles from './index.module.scss'
 
 export interface IsModalShowingProps {
@@ -33,10 +35,21 @@ const Modal = ({
 		[content, setIsShowing]
 	)
 
+	const onKeyDown: OnKeyDown = useCallback(
+		event => {
+			if (!(isShowing && event.key === 'Escape')) return
+
+			event.preventDefault()
+			setIsShowing(false)
+		},
+		[isShowing, setIsShowing]
+	)
+
+	useKey(onKeyDown)
+
 	useEffect(() => {
-		if (root) return
 		setRoot(document.createElement('div'))
-	}, [root, setRoot])
+	}, [setRoot])
 
 	useEffect(() => {
 		if (!root) return
@@ -45,25 +58,21 @@ const Modal = ({
 		root.setAttribute('role', 'presentation')
 
 		const { body } = document
-		body.appendChild(root)
 
-		return () => {
-			body.removeChild(root)
-		}
+		body.appendChild(root)
+		return () => void body.removeChild(root)
 	}, [root])
 
 	useEffect(() => {
 		if (!root) return
-		root.setAttribute('aria-hidden', (!isShowing).toString())
 
+		root.setAttribute('aria-hidden', (!isShowing).toString())
 		if (!isShowing) return
+
 		const { body } = document
 
 		body.addEventListener('click', onClick)
-
-		return () => {
-			body.removeEventListener('click', onClick)
-		}
+		return () => body.removeEventListener('click', onClick)
 	}, [root, isShowing, onClick])
 
 	return (
