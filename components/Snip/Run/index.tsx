@@ -1,6 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { Svg } from 'react-optimized-image'
+import { ParsedUrlQuery } from 'querystring'
+import pickBy from 'lodash/pickBy'
 
 import Snip from 'lib/snip'
 import runSnip, { SnipResponse } from 'lib/snip/run'
@@ -9,6 +12,7 @@ import formatSize from 'lib/format/size'
 import onError from 'lib/error'
 import usePersistentState from 'use/state/persistent'
 import useKey, { OnKeyDown } from 'use/key'
+import useIsomorphicLayoutEffect from 'use/layout/effect'
 import Spinner from 'components/Spinner'
 
 import runIcon from 'images/run.svg'
@@ -21,12 +25,20 @@ const TextEdit = dynamic(() => import('components/Code/Text'), {
 	loading: () => <div className={styles.value} />
 })
 
+export interface RunSnipQuery extends ParsedUrlQuery {
+	i?: string
+	o?: string
+}
+
 export interface RunSnipProps {
 	snip: Snip
 }
 
 const RunSnip = ({ snip }: RunSnipProps) => {
 	const language = getLanguage(snip)
+
+	const router = useRouter()
+	const query = router.query as RunSnipQuery
 
 	const [isShowing, setIsShowing] = usePersistentState('isRunSnipShowing', true)
 	const [isLoading, setIsLoading] = useState(false)
@@ -58,7 +70,7 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 			if (
 				language &&
 				key === 'r' &&
-				(/Mac/.test(navigator.platform) ? metaKey : ctrlKey)
+				(navigator.platform.includes('Mac') ? metaKey : ctrlKey)
 			) {
 				event.preventDefault()
 				run()
@@ -68,6 +80,28 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 	)
 
 	useKey(onKeyDown)
+
+	useEffect(() => {
+		router.replace(
+			{
+				pathname: `/${snip.id}`,
+				query: pickBy({ i: input, o: response?.stdout })
+			},
+			undefined,
+			{ shallow: true }
+		)
+	}, [snip.id, input, response])
+
+	useIsomorphicLayoutEffect(() => {
+		if (query.i) setInput(query.i)
+		if (query.o)
+			setResponse({
+				stdout: query.o,
+				compile_output: null,
+				time: null,
+				memory: null
+			})
+	}, [setInput, setResponse])
 
 	return (
 		language && (

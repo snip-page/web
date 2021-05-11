@@ -41,7 +41,10 @@ const CreateSnip: NextPage = () => {
 		event => {
 			const { key, metaKey, ctrlKey } = event
 
-			if (key === 's' && (/Mac/.test(navigator.platform) ? metaKey : ctrlKey)) {
+			if (
+				key === 's' &&
+				(navigator.platform.includes('Mac') ? metaKey : ctrlKey)
+			) {
 				event.preventDefault()
 				save()
 			}
