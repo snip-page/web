@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 import SnipRequest from 'lib/snip/request'
 import getSnip from 'lib/snip/get'
+import snipEquals from 'lib/snip/equals'
 import Props from 'lib/snip/page/props'
 import useKey, { OnKeyDown } from 'use/key'
 import Head from 'components/Head'
@@ -18,7 +19,6 @@ import Name from './Name'
 import Save from './Save'
 
 import styles from './index.module.scss'
-import snipEquals from 'lib/snip/equals'
 
 const Code = dynamic(() => import('components/Code'), {
 	ssr: false,
@@ -30,6 +30,8 @@ const SnipPage: NextPage<Props> = ({ snip: initialSnip }) => {
 
 	const [isNameModalShowing, setIsNameModalShowing] = useState(false)
 	const [isSaveModalShowing, setIsSaveModalShowing] = useState(false)
+
+	const saved = !(snip && initialSnip) || snipEquals(snip, initialSnip)
 
 	const save = useCallback(() => {
 		setIsSaveModalShowing(true)
@@ -69,12 +71,8 @@ const SnipPage: NextPage<Props> = ({ snip: initialSnip }) => {
 			/>
 			<div className={styles.options}>
 				<Tabs>
-					<HomeTab />
-					<SnipTab
-						snip={snip}
-						saved={!(snip && initialSnip) || snipEquals(snip, initialSnip)}
-						onClick={rename}
-					/>
+					<HomeTab saved={saved} />
+					<SnipTab snip={snip} saved={saved} onClick={rename} />
 				</Tabs>
 				<div className={styles.actions}>
 					<Embed snip={snip} />

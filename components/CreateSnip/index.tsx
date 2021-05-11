@@ -29,6 +29,8 @@ const CreateSnip: NextPage = () => {
 	const [isNameModalShowing, setIsNameModalShowing] = useState(true)
 	const [isSaveModalShowing, setIsSaveModalShowing] = useState(false)
 
+	const saved = snipEquals(snip, EMPTY_SNIP)
+
 	const save = useCallback(() => {
 		setIsSaveModalShowing(true)
 	}, [setIsSaveModalShowing])
@@ -59,12 +61,8 @@ const CreateSnip: NextPage = () => {
 			<Head title="new | snip" description="Create a new snip" image="" />
 			<div className={styles.options}>
 				<Tabs>
-					<HomeTab />
-					<SnipTab
-						snip={snip}
-						saved={snipEquals(snip, EMPTY_SNIP)}
-						onClick={rename}
-					/>
+					<HomeTab saved={saved} />
+					<SnipTab snip={snip} saved={saved} onClick={rename} />
 				</Tabs>
 				<div className={styles.actions}>
 					<Download snip={snip} />
