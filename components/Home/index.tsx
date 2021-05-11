@@ -23,7 +23,7 @@ const Home: NextPage<HomeProps> = ({ snips }) => (
 
 Home.getInitialProps = async ({ req }) => ({
 	snips: req
-		? ((req as unknown) as RecentSnipsRequest).snips
+		? (req as unknown as RecentSnipsRequest).snips
 		: await getRecentSnips()
 })
 

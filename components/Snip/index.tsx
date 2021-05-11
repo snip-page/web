@@ -104,7 +104,7 @@ const SnipPage: NextPage<Props> = ({ snip: initialSnip }) => {
 
 SnipPage.getInitialProps = async ({ req, res, query }) => {
 	const snip = req
-		? ((req as unknown) as SnipRequest).snip
+		? (req as unknown as SnipRequest).snip
 		: await getSnip(query.id as string)
 
 	if (!snip && res) res.statusCode = 404

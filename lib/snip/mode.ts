@@ -13,11 +13,11 @@ interface GetMode {
 	findModeByFileName(filename: string): Type | undefined
 }
 
-const code = (CodeMirror as unknown) as GetMode
+const code = CodeMirror as unknown as GetMode
 
 const getMode = async ({ name }: SnipMeta) => {
 	const type = code.findModeByFileName(name)
-	if (!type) return null
+	if (!type) return undefined
 
 	const { mime, mode } = type
 	if (mode !== 'null') await import(`codemirror/mode/${mode}/${mode}.js`)
