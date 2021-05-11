@@ -33,27 +33,31 @@ const SnipPage: NextPage<Props> = ({ snip: initialSnip }) => {
 
 	const saved = !(snip && initialSnip) || snipEquals(snip, initialSnip)
 
-	const save = useCallback(() => {
-		setIsSaveModalShowing(true)
-	}, [setIsSaveModalShowing])
-
 	const rename = useCallback(() => {
 		setIsNameModalShowing(true)
 	}, [setIsNameModalShowing])
 
+	const save = useCallback(() => {
+		setIsSaveModalShowing(true)
+	}, [setIsSaveModalShowing])
+
 	const onKeyDown: OnKeyDown = useCallback(
 		event => {
 			const { key, metaKey, ctrlKey } = event
+			if (!(navigator.platform.includes('Mac') ? metaKey : ctrlKey)) return
 
-			if (
-				key === 's' &&
-				(navigator.platform.includes('Mac') ? metaKey : ctrlKey)
-			) {
-				event.preventDefault()
-				save()
+			switch (key) {
+				case 'e':
+					event.preventDefault()
+					rename()
+					break
+				case 's':
+					event.preventDefault()
+					save()
+					break
 			}
 		},
-		[save]
+		[rename, save]
 	)
 
 	useKey(onKeyDown)
