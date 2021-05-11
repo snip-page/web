@@ -71,7 +71,7 @@ const CreateSnip: NextPage = () => {
 				</div>
 			</div>
 			<Code className={styles.code} snip={snip} setSnip={setSnip} />
-			<Run snip={snip} />
+			<Run snip={snip} persist={false} />
 			<Name
 				snip={snip}
 				setSnip={setSnip}

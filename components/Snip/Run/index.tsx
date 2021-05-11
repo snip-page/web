@@ -1,12 +1,12 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { Svg } from 'react-optimized-image'
-import { ParsedUrlQuery } from 'querystring'
 import pickBy from 'lodash/pickBy'
 
 import Snip from 'lib/snip'
 import runSnip, { SnipResponse } from 'lib/snip/run'
+import RunSnipQuery from 'lib/snip/run/query'
 import getLanguage from 'lib/snip/language'
 import formatSize from 'lib/format/size'
 import onError from 'lib/error'
@@ -25,20 +25,18 @@ const TextEdit = dynamic(() => import('components/Code/Text'), {
 	loading: () => <div className={styles.value} />
 })
 
-export interface RunSnipQuery extends ParsedUrlQuery {
-	i?: string
-	o?: string
-}
-
 export interface RunSnipProps {
 	snip: Snip
+	persist?: boolean
 }
 
-const RunSnip = ({ snip }: RunSnipProps) => {
+const RunSnip = ({ snip, persist = true }: RunSnipProps) => {
 	const language = getLanguage(snip)
 
 	const router = useRouter()
 	const query = router.query as RunSnipQuery
+
+	const isInitialQuery = useRef(true)
 
 	const [isShowing, setIsShowing] = usePersistentState('isRunSnipShowing', true)
 	const [isLoading, setIsLoading] = useState(false)
@@ -82,15 +80,22 @@ const RunSnip = ({ snip }: RunSnipProps) => {
 	useKey(onKeyDown)
 
 	useEffect(() => {
+		if (!persist) return
+
+		if (isInitialQuery.current) {
+			isInitialQuery.current = false
+			return
+		}
+
+		const next = pickBy({ i: input, o: response?.stdout }) as RunSnipQuery
+		if (query.i === next.i && query.o === next.o) return
+
 		router.replace(
-			{
-				pathname: `/${snip.id}`,
-				query: pickBy({ i: input, o: response?.stdout })
-			},
+			{ pathname: window.location.pathname, query: next },
 			undefined,
 			{ shallow: true }
 		)
-	}, [snip.id, input, response])
+	}, [snip.id, persist, isInitialQuery, input, response])
 
 	useIsomorphicLayoutEffect(() => {
 		if (query.i) setInput(query.i)

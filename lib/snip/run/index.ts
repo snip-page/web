@@ -1,7 +1,7 @@
-import Snip from '.'
+import Snip from '..'
 import HttpError from 'lib/error/http'
 import { RUN_ORIGIN } from 'lib/constants'
-import getLanguage from './language'
+import getLanguage from '../language'
 
 const TIME_LIMIT = 5 // 5 seconds
 const MEMORY_LIMIT = 30 * 1024 // 30 MB
