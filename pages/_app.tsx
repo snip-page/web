@@ -26,6 +26,12 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => (
 				content={styles.theme}
 			/>
 			<meta key="theme-color" name="theme-color" content={styles.theme} />
+			<link
+				key="sitemap"
+				rel="sitemap"
+				type="application/xml"
+				href="/sitemap.xml"
+			/>
 		</Head>
 		<Component {...pageProps} />
 		<ToastContainer />
