@@ -35,7 +35,8 @@
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-toastify": "^7.0.4",
-		"sass": "^1.32.12"
+		"sass": "^1.32.12",
+		"xmlbuilder2": "^2.4.1"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.14.1",
