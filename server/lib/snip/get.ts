@@ -5,7 +5,7 @@ const getSnip = async (id: string) => {
 	const { rows: snips } = await useClient(client =>
 		client.query<Snip>(
 			`
-			SELECT id, name, text
+			SELECT id, name, text, public
 			FROM snips
 			WHERE id = $1
 			`,

@@ -44,9 +44,15 @@ router.post(
 			if (!(typeof body === 'object' && body))
 				throw new HttpError(400, 'Invalid body')
 
-			const { name, text }: CreateSnipData = body
+			const { name, text, public: isPublic }: CreateSnipData = body
 
-			if (!(typeof name === 'string' && typeof text === 'string'))
+			if (
+				!(
+					typeof name === 'string' &&
+					typeof text === 'string' &&
+					typeof isPublic === 'boolean'
+				)
+			)
 				throw new HttpError(400, 'Invalid body')
 
 			res.send(await createSnip(body))

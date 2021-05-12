@@ -5,7 +5,7 @@ import resolveName from './name'
 import resolveText from './text'
 import useClient from '../../data/use'
 
-const createSnip = async ({ name, text }: Data) => {
+const createSnip = async ({ name, text, public: isPublic }: Data) => {
 	const id = nanoid(10)
 
 	name = resolveName(name)
@@ -13,8 +13,11 @@ const createSnip = async ({ name, text }: Data) => {
 
 	await useClient(client =>
 		client.query<Record<string, never>>(
-			'INSERT INTO snips (id, name, text) VALUES ($1, $2, $3)',
-			[id, name, text]
+			`
+			INSERT INTO snips (id, name, text, public)
+			VALUES ($1, $2, $3, $4)
+			`,
+			[id, name, text, isPublic]
 		)
 	)
 

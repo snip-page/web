@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
-import Snip from 'lib/snip'
+import emptySnip from 'lib/snip/empty'
 import snipEquals from 'lib/snip/equals'
 import useKey, { OnKeyDown } from 'use/key'
 import Head from 'components/Head'
@@ -21,15 +21,13 @@ const Code = dynamic(() => import('components/Code'), {
 	loading: () => <div />
 })
 
-const EMPTY_SNIP: Snip = { id: '', name: '', text: '' }
-
 const CreateSnip: NextPage = () => {
-	const [snip, setSnip] = useState(EMPTY_SNIP)
+	const [snip, setSnip] = useState(emptySnip)
 
 	const [isNameModalShowing, setIsNameModalShowing] = useState(true)
 	const [isSaveModalShowing, setIsSaveModalShowing] = useState(false)
 
-	const saved = snipEquals(snip, EMPTY_SNIP)
+	const saved = snipEquals(snip, emptySnip)
 
 	const rename = useCallback(() => {
 		setIsNameModalShowing(true)
