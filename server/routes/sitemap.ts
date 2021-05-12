@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { create as xml } from 'xmlbuilder2'
 
-import getSnips from '../lib/snip/ids'
+import getPaths from '../lib/paths'
 import sendError from '../lib/error/send'
 import { ORIGIN } from '../lib/constants'
 
@@ -17,8 +17,8 @@ router.get('/sitemap.xml', async (_req, res) => {
 					'@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
 					'@xsi:schemaLocation':
 						'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
-					url: (await getSnips()).map(snip => ({
-						loc: `${ORIGIN}/${snip.id}`
+					url: (await getPaths()).map(path => ({
+						loc: `${ORIGIN}${path}`
 					}))
 				}
 			}
